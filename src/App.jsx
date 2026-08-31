@@ -97,7 +97,7 @@ function App() {
     <div className="app-shell">
       <header className="topbar">
         <div className="brand-wrap">
-          <div className="brand-mark">ALEX</div>
+          <div className="brand-mark" aria-label="Library icon" role="img">📚</div>
           <div>
             <p className="eyebrow">The Alexandria Index</p>
             <h1>Robotics Knowledge Vault</h1>

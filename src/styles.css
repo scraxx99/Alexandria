@@ -1,15 +1,15 @@
 :root {
-  --bg: #0d1a16;
-  --panel: #17251f;
-  --panel-alt: #20372d;
-  --line: rgba(233, 210, 150, 0.18);
-  --text: #f4ead0;
-  --muted: #cbbf94;
-  --primary: #d9b76f;
-  --primary-strong: #b98d40;
-  --accent: #f3d898;
-  --danger: #d56a5d;
-  --shadow: rgba(0, 0, 0, 0.28);
+  --bg: #071a1f;
+  --panel: #0f2d36;
+  --panel-alt: #163d49;
+  --line: rgba(119, 204, 197, 0.18);
+  --text: #eafafc;
+  --muted: #a9d6d1;
+  --primary: #4ad7b7;
+  --primary-strong: #2aa9d8;
+  --accent: #9ae6ff;
+  --danger: #ff7d7d;
+  --shadow: rgba(3, 20, 26, 0.35);
 }
 
 * { box-sizing: border-box; }
@@ -18,8 +18,8 @@ body {
   margin: 0;
   font-family: Arial, sans-serif;
   background:
-    radial-gradient(circle at top, rgba(217, 183, 111, 0.14), transparent 28%),
-    linear-gradient(135deg, #07140f, #0d1c18 42%, #142b26 100%);
+    radial-gradient(circle at top, rgba(74, 215, 183, 0.16), transparent 28%),
+    linear-gradient(135deg, #051a22 0%, #0d2a34 42%, #103d4d 100%);
   color: var(--text);
 }
 
@@ -58,13 +58,13 @@ button, input, select, textarea {
   width: 72px;
   height: 72px;
   border-radius: 18px;
-  background: linear-gradient(135deg, rgba(217, 183, 111, 0.2), rgba(185, 141, 64, 0.35));
-  border: 1px solid rgba(217, 183, 111, 0.7);
+  background: linear-gradient(135deg, rgba(74, 215, 183, 0.16), rgba(42, 169, 216, 0.25));
+  border: 1px solid rgba(154, 230, 255, 0.75);
   color: var(--accent);
   font-weight: 900;
   letter-spacing: 0.12em;
   font-size: 0.82rem;
-  box-shadow: inset 0 0 16px rgba(243, 216, 152, 0.12);
+  box-shadow: inset 0 0 16px rgba(154, 230, 255, 0.12);
 }
 
 .eyebrow {
@@ -139,13 +139,13 @@ textarea {
 
 .primary-btn {
   background: linear-gradient(135deg, var(--primary), var(--primary-strong));
-  color: #1a1205;
+  color: #062a2f;
   border: none;
   padding: 10px 18px;
   border-radius: 10px;
   font-weight: 800;
   cursor: pointer;
-  box-shadow: 0 8px 18px rgba(185, 141, 64, 0.25);
+  box-shadow: 0 8px 18px rgba(42, 169, 216, 0.28);
 }
 
 .primary-btn:disabled {
@@ -191,13 +191,13 @@ textarea {
 
 .tag {
   display: inline-block;
-  background: rgba(78, 205, 196, 0.14);
+  background: rgba(74, 215, 183, 0.12);
   color: var(--accent);
   border-radius: 999px;
   padding: 4px 10px;
   margin-bottom: 12px;
   font-size: 0.76rem;
-  border: 1px solid rgba(78, 205, 196, 0.35);
+  border: 1px solid rgba(74, 215, 183, 0.35);
 }
 
 .record-card p {

@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import JSZip from 'jszip';
 
 const initialForm = {
   title: '',
@@ -14,6 +15,7 @@ function App() {
   const [showForm, setShowForm] = useState(false);
   const [form, setForm] = useState(initialForm);
   const [isSaving, setIsSaving] = useState(false);
+  const [isExporting, setIsExporting] = useState(false);
 
   const loadRecords = async () => {
     const res = await fetch('/api/records');
@@ -93,6 +95,56 @@ function App() {
     }
   };
 
+  const handleExportLibrary = async () => {
+    if (!records.length) {
+      alert('There are no files in the library to export yet.');
+      return;
+    }
+
+    setIsExporting(true);
+    try {
+      const zip = new JSZip();
+      const manifest = records.map((record) => ({
+        id: record.id,
+        title: record.title,
+        category: record.category,
+        description: record.description,
+        uploader: record.uploader,
+        fileName: record.fileName,
+        fileType: record.fileType,
+        createdAt: record.createdAt,
+        filePath: record.filePath
+      }));
+
+      zip.file('library-manifest.json', JSON.stringify(manifest, null, 2));
+
+      for (const record of records) {
+        const response = await fetch(record.filePath);
+        if (!response.ok) {
+          throw new Error(`Unable to fetch ${record.fileName || record.title}`);
+        }
+        const blob = await response.blob();
+        const safeFileName = (record.fileName || `${record.title}.bin`).replace(/[\\/:*?"<>|]/g, '_');
+        zip.file(`files/${safeFileName}`, blob);
+      }
+
+      const content = await zip.generateAsync({ type: 'blob' });
+      const url = URL.createObjectURL(content);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'alexandria-library-export.zip';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error(error);
+      alert('Library export failed. Please try again.');
+    } finally {
+      setIsExporting(false);
+    }
+  };
+
   return (
     <div className="app-shell">
       <header className="topbar">
@@ -103,9 +155,14 @@ function App() {
             <h1>Robotics Knowledge Vault</h1>
           </div>
         </div>
-        <button className="primary-btn" onClick={() => setShowForm((prev) => !prev)}>
-          {showForm ? 'Close Form' : 'Add Resource'}
-        </button>
+        <div className="header-actions">
+          <button className="secondary-btn" onClick={handleExportLibrary} disabled={isExporting}>
+            {isExporting ? 'Exporting...' : 'Download Library'}
+          </button>
+          <button className="primary-btn" onClick={() => setShowForm((prev) => !prev)}>
+            {showForm ? 'Close Form' : 'Add Resource'}
+          </button>
+        </div>
       </header>
 
       <p className="subtitle">

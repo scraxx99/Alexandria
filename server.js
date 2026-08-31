@@ -5,7 +5,7 @@ const fs = require('fs');
 const sqlite3 = require('sqlite3').verbose();
 
 const app = express();
-const PORT = process.env.PORT || 3001;
+const PORT = Number(process.env.PORT) || 3001;
 const __root = __dirname;
 const uploadsDir = path.join(__root, 'uploads');
 const dbPath = path.join(__root, 'library.db');
@@ -168,6 +168,6 @@ app.get('*', (req, res, next) => {
   return next();
 });
 
-app.listen(PORT, () => {
-  console.log(`Alexandria Index API running on http://localhost:${PORT}`);
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Alexandria Index API running on http://0.0.0.0:${PORT}`);
 });

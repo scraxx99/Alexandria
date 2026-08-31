@@ -1,0 +1,8 @@
+services:
+  - type: web
+    name: alexandria-index
+    env: node
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/health
